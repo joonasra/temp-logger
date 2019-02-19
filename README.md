@@ -1,1 +1,2 @@
-Simple backend for temperature logging
+Node application for temperature logging.
+Stack: Node + Express + MongoDB + React
