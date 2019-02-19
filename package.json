@@ -1,9 +1,15 @@
 {
-  "name": "temp-logger-backend",
+  "name": "temp-logger",
   "version": "1.0.0",
-  "description": "Backend for temperature logging",
+  "description": "Node application for temperature logging",
   "main": "index.js",
   "scripts": {
+    "client-install": "npm install --prefix client",
+    "client": "npm start --prefix client",
+    "start": "node index.js",
+    "watch": "nodemon index.js",
+    "dev": "concurrently \"npm run watch\" \"npm run client\"",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Joonas Rantanen",
@@ -13,6 +19,7 @@
     "body-parser": "^1.18.3",
     "concurrently": "^4.1.0",
     "cors": "^2.8.5",
+    "dotenv": "^6.2.0",
     "express": "^4.16.4",
     "jsonwebtoken": "^8.4.0",
     "mongoose": "^5.4.13"
