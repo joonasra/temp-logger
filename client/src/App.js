@@ -1,40 +1,45 @@
 import React, { useState } from 'react'
 import './App.css'
+import LoginForm from './components/LoginForm'
+import loginService from './services/login'
 
 const App = () => {
+  const [values, setValues] = useState({ username: '', password: '' })
   const [user, setUser] = useState(null)
-  const [username, setUsername] = useState('')
-  const [password, setPassword] = useState('')
+
+  const handleChange = e => {
+    setValues({ ...values, [e.target.name]: e.target.value })
+  }
+
+  const login = async e => {
+    try {
+      e.preventDefault()
+      const newUser = await loginService.login({
+        username: values.username,
+        password: values.password
+      })
+      setValues({ username: '', password: '' })
+      setUser(newUser)
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
   return (
     <div className="App">
       <div className="container">
-        <div className="login">
-          <form className="form-signin">
-            <label htmlFor="inputUsername">Käyttäjänimi</label>
-            <input
-              id="inputUsername"
-              className="form-control"
-              type="text"
-              value={username}
-              onChange={() => setUsername(username)}
-              required
-              autoFocus
-            />
-            <label htmlFor="inputPassword">Salasana</label>
-            <input
-              id="inputPassword"
-              className="form-control"
-              type="password"
-              value={password}
-              onChange={() => setPassword(password)}
-              required
-            />
-            <button className="btn btn-md btn-primary btn-block" type="submit">
-              Kirjaudu
-            </button>
-          </form>
-        </div>
+        {!user ? (
+          <LoginForm
+            values={values}
+            login={login}
+            handleChange={handleChange}
+          />
+        ) : (
+          <div>
+            <div>User: {user.username}</div>
+            <div>User token: {user.token}</div>
+          </div>
+        )}
       </div>
     </div>
   )
