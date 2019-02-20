@@ -5,6 +5,7 @@ const cors = require('cors')
 const mongoose = require('mongoose')
 const loginRouter = require('./controllers/login')
 const usersRouter = require('./controllers/users')
+const temperatureRouter = require('./controllers/temperatures')
 
 if (process.env.NODE_ENV !== 'production') {
   require('dotenv').config()
@@ -21,6 +22,7 @@ app.use(express.static('build'))
 
 app.use('/api/login', loginRouter)
 app.use('/api/users', usersRouter)
+app.use('/api/temperatures', temperatureRouter)
 
 const PORT = process.env.PORT || 5000
 app.listen(PORT, () => console.log(`Server started on port ${PORT}`))

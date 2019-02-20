@@ -1,15 +1,27 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import './App.css'
 import About from './components/About'
+import Data from './components/Data'
 import LoginForm from './components/LoginForm'
 import Navigation from './components/Navigation'
 import Profile from './components/Profile'
 import loginService from './services/login'
+import temperatureService from './services/temperature'
 
 const App = () => {
   const [values, setValues] = useState({ username: '', password: '' })
   const [user, setUser] = useState(null)
-  const [screen, setScreen] = useState(null)
+  const [screen, setScreen] = useState('data')
+  const [data, setData] = useState({ temperatures: [] })
+
+  const fetchData = async () => {
+    const result = await temperatureService.getData()
+    setData({ temperatures: result })
+  }
+
+  useEffect(() => {
+    fetchData()
+  }, [])
 
   const handleChange = e => {
     setValues({ ...values, [e.target.name]: e.target.value })
@@ -50,6 +62,11 @@ const App = () => {
         ) : (
           <div>
             <Navigation logout={logout} changeScreen={changeScreen} />
+            {screen === 'data' ? (
+              <div>
+                <Data data={data} />
+              </div>
+            ) : null}
 
             {screen === 'profile' ? (
               <div>

@@ -15,6 +15,7 @@ const LoginForm = ({ values, login, handleChange }) => {
           onChange={e => handleChange(e)}
           required
           autoFocus
+          autoComplete="off"
         />
         <label htmlFor="inputPassword">Salasana</label>
         <input
@@ -26,6 +27,7 @@ const LoginForm = ({ values, login, handleChange }) => {
           value={values.password}
           onChange={e => handleChange(e)}
           required
+          autoComplete="off"
         />
         <button className="btn btn-md btn-primary btn-block" type="submit">
           Kirjaudu
