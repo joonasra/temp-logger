@@ -1,11 +1,13 @@
 import React, { useState } from 'react'
 import './App.css'
 import LoginForm from './components/LoginForm'
+import Navigation from './components/Navigation'
 import loginService from './services/login'
 
 const App = () => {
   const [values, setValues] = useState({ username: '', password: '' })
   const [user, setUser] = useState(null)
+  const [screen, setScreen] = useState(null)
 
   const handleChange = e => {
     setValues({ ...values, [e.target.name]: e.target.value })
@@ -25,6 +27,15 @@ const App = () => {
     }
   }
 
+  const logout = e => {
+    e.preventDefault()
+    setUser(null)
+  }
+
+  const changeScreen = screen => {
+    setScreen(screen)
+  }
+
   return (
     <div className="App">
       <div className="container">
@@ -36,8 +47,14 @@ const App = () => {
           />
         ) : (
           <div>
-            <div>User: {user.username}</div>
-            <div>User token: {user.token}</div>
+            <Navigation logout={logout} changeScreen={changeScreen} />
+            {/* <div>User: {user.username}</div>
+            <div>User token: {user.token}</div> */}
+            {!screen ? null : (
+              <div>
+                <h3>{screen}</h3>
+              </div>
+            )}
           </div>
         )}
       </div>
