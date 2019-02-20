@@ -5,10 +5,9 @@ const About = () => {
     <div>
       <h3>Tietoa</h3>
       <p>
-        Sivustolla on mahdollista seurata kerätyn lämpötiladatan perusteella
-        lämpötilan kehitystä eri aikoina. Data kerätään DS18B20
-        lämpötila-anturilla kytkettynä NodeMCU ESP32S Wifi-moduuliin, joka
-        lähettää datan JSON-muotoisena serverille.
+        Sivustolla on tarkoitus esittää lämpötiladataa tietyllä mittaussyklillä.
+        Data kerätään DS18B20 lämpötila-anturilla kytkettynä NodeMCU ESP32S
+        Wifi-moduuliin, joka lähettää datan JSON-muotoisena serverille.
       </p>
       <p />
       Teknologiat, joita hyödynnetty tässä web sovelluksessa:

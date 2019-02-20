@@ -13,15 +13,17 @@ const App = () => {
   const [user, setUser] = useState(null)
   const [screen, setScreen] = useState('data')
   const [data, setData] = useState({ temperatures: [] })
+  const [refresh, setRefresh] = useState(0)
 
   const fetchData = async () => {
     const result = await temperatureService.getData()
     setData({ temperatures: result })
+    setRefresh(0)
   }
 
   useEffect(() => {
     fetchData()
-  }, [])
+  }, [refresh])
 
   const handleChange = e => {
     setValues({ ...values, [e.target.name]: e.target.value })
@@ -44,6 +46,7 @@ const App = () => {
   const logout = e => {
     e.preventDefault()
     setUser(null)
+    setScreen('data')
   }
 
   const changeScreen = screen => {
@@ -64,7 +67,7 @@ const App = () => {
             <Navigation logout={logout} changeScreen={changeScreen} />
             {screen === 'data' ? (
               <div>
-                <Data data={data} />
+                <Data data={data.temperatures} refresh={() => setRefresh(1)} />
               </div>
             ) : null}
 
